@@ -8,7 +8,7 @@ int main (int argc, char *argv[]){
 
     int socket_desc;
     struct sockaddr_in server;
-    char *message, server_reply[2000];
+    char message[2000], server_reply[2000];
 
     // AF_INET - IPV4, SOCK_STREAM - TCP, 0 - IP
         socket_desc = socket(AF_INET, SOCK_STREAM, 0);
@@ -32,7 +32,8 @@ int main (int argc, char *argv[]){
     printf("Conectado.\n");
 
     //envia dados
-    message = "Olá Mundo!";
+    printf("Digite uma mensagem:");
+    scanf("%[^\n]s", message);
     if (send(socket_desc, message, strlen(message), 0 ) <0){
         printf("Erro ao enviar\n");
         return 1;
