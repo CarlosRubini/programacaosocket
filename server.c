@@ -9,6 +9,7 @@ int main (int argc, char *argv[]){
 
     int socket_desc, c, new_socket;
     struct sockaddr_in server, client;
+    char *message, client_reply [2000];
 
 
     socket_desc = socket(AF_INET, SOCK_STREAM, 0);
@@ -50,6 +51,20 @@ int main (int argc, char *argv[]){
     int client_port = ntohs(client.sin_port);
 
     printf("Conexão aceita do client %s:%d\n", client_ip, client_port);
+
+    // recebe dadps do cliente
+
+    if (recv(new_socket, client_reply,2000, 0) < 0){
+        printf("Falha no recv\n");
+        return 1;
+    }
+    printf("Resposta Recebida\n");
+    printf("%s\n", client_reply);
+
+    // resposta ao cliente
+
+    message = "Olá cliente!";
+    write(new_socket, message, strlen(message));
 
     return 0;
 }
