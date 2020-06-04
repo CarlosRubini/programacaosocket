@@ -7,8 +7,8 @@
 
 int main (int argc, char *argv[]){
 
-    int socket_desc;
-    struct sockaddr_in server;
+    int socket_desc, c, new_socket;
+    struct sockaddr_in server, client;
 
 
     socket_desc = socket(AF_INET, SOCK_STREAM, 0);
@@ -27,6 +27,29 @@ int main (int argc, char *argv[]){
         return 1;
     }
     printf("Bind efetuado\n");
+    
+    // escutar
+    listen(socket_desc, 3);
+
+    //aceitar conexão entrantes
+
+    printf("Aguardando conexoes...\n");
+    c = sizeof(struct sockaddr_in);
+    new_socket = accept(socket_desc, (struct sockaddr *)&client, (socklen_t*)&c);
+	
+    if (new_socket<0)
+	{
+		perror("Erro ao aceitar conexão");
+		return 1;
+	}
+
+    printf("Conexão aceita\n");
+
+    char *client_ip = inet_ntoa(client.sin_addr);
+
+    int client_port = ntohs(client.sin_port);
+
+    printf("Conexão aceita do client %s:%d\n", client_ip, client_port);
 
     return 0;
 }

@@ -18,9 +18,9 @@ int main (int argc, char *argv[]){
         return 1;
     }
 
-    server.sin_addr.s_addr = inet_addr("172.217.28.132"); // converte IP para long
+    server.sin_addr.s_addr = inet_addr("127.0.0.1"); // converte IP para long
     server.sin_family = AF_INET; // ip v4
-    server.sin_port = htons(80);
+    server.sin_port = htons(8888);
 
     // conecta-se ao servidor
     if (connect(socket_desc, (struct sockaddr *) &server, sizeof(server)) < 0)
