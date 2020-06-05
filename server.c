@@ -53,8 +53,10 @@ int main (int argc, char *argv[]){
 
         printf("Conexão aceita do client %s:%d\n", client_ip, client_port);
 
-    // recebe dados do cliente
-
+    do{
+        //limpa a variavel
+        bzero(client_reply, sizeof(client_reply));
+        // recebe dados do cliente
         if (recv(new_socket, client_reply,2000, 0) < 0){
             printf("Falha no recv\n");
             return 1;
@@ -62,10 +64,13 @@ int main (int argc, char *argv[]){
         printf("Resposta Recebida\n");
         printf("%s\n", client_reply);
 
-    // resposta ao cliente
+        //resposta ao cliente
 
         message = "Olá cliente!";
         write(new_socket, message, strlen(message));
-    }
+
+
+    }  while (strcmp(client_reply, "exit") != 0);
+}
     return 0;
 }
