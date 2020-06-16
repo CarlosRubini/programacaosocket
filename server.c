@@ -9,7 +9,7 @@ int main (int argc, char *argv[]){
 
     int socket_desc, c, new_socket;
     struct sockaddr_in server, client;
-    char *message, client_reply [2000];
+    char message[2000], client_reply [2000];
 
 
     socket_desc = socket(AF_INET, SOCK_STREAM, 0);
@@ -64,13 +64,27 @@ int main (int argc, char *argv[]){
         printf("Resposta Recebida\n");
         printf("%s\n", client_reply);
 
-        //resposta ao cliente
+        //envia dados
+        printf("Digite uma mensagem:");
 
-        message = "Olá cliente!";
+        //resposta ao cliente
+        bzero(message, sizeof(message));
+
+        int ch, n = 0;
+        /* lê a entrada de dados do usuário via getchar */
+        while ((ch = getchar()) != '\n' && n < 2000) {
+            message[n] = ch;
+            ++n;
+        }
+
+        //message = "Olá cliente!";
         write(new_socket, message, strlen(message));
 
 
     }  while (strcmp(client_reply, "exit") != 0);
+    if (strcmp(client_reply, "exit") != 0){
+        return 0;
+    }
 }
     return 0;
 }
