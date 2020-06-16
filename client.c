@@ -49,7 +49,6 @@ int main (int argc, char *argv[]){
             printf("Erro ao enviar\n");
             return 1;
         }
-        //printf("Dados enviados.\n");
 
         //recebe dados do servidor
         if (recv(socket_desc, server_reply,2000, 0) < 0){

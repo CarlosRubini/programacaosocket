@@ -77,14 +77,12 @@ int main (int argc, char *argv[]){
             ++n;
         }
 
-        //message = "Olá cliente!";
+        
         write(new_socket, message, strlen(message));
 
 
     }  while (strcmp(client_reply, "exit") != 0);
-    if (strcmp(client_reply, "exit") != 0){
-        return 0;
-    }
+    
 }
     return 0;
 }
